@@ -3,7 +3,6 @@ package com.adventofcode.day;
 import java.util.Arrays;
 import java.util.List;
 
-// https://adventofcode.com/2024/day/2
 public class Day2 extends DayBase {
 
     @Override
@@ -13,10 +12,18 @@ public class Day2 extends DayBase {
     }
 
     public Integer calculate(List<String> rows) {
+        return this.calculate(rows, false);
+    }
+
+    public Integer calculate(List<String> rows, boolean tolerateOneFail) {
 
         int safeCount = 0;
 
         for (String row : rows) {
+            if (row.isBlank()) {
+                System.out.println("Blank rad lol");
+                continue;
+            }
 
             boolean increasing = true;
             boolean decreasing = true;
@@ -31,27 +38,29 @@ public class Day2 extends DayBase {
             }
 
             for (String s : temp) {
-                int currentValue = Integer.parseInt(s);
 
                 if (recentValue == null) {
-                    recentValue = currentValue;
+                    recentValue = Integer.parseInt(s);
                     continue;
                 } else {
+                    int currentValue = Integer.parseInt(s);
+                    int diff = 0;
 
                     increasing &= recentValue < currentValue;
                     decreasing &= recentValue > currentValue;
 
-                    int diff = Math.subtractExact(recentValue, currentValue);
+                    diff = Math.abs(Math.subtractExact(recentValue, currentValue));
+                    // System.out.println(String.format("(%d, %d) diff: %d", recentValue,
+                    // currentValue, diff));
 
-                    goodRow &= diff >= 1 || diff <= 3;
-                    if (!goodRow) {
-                        System.out.println(String.format("Fail: %d -> %d", recentValue, currentValue));
-                    }
-
+                    goodRow &= diff >= 1 && diff <= 3;
                     recentValue = currentValue;
                 }
             }
             if (goodRow && (increasing || decreasing)) {
+                // System.out.println(String.format("increasing: %s, decreasing: %s",
+                // increasing, decreasing));
+                // System.out.println();
                 safeCount++;
             }
 

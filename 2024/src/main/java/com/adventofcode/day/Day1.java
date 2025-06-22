@@ -23,7 +23,7 @@ public class Day1 extends DayBase {
             second.add(two);
         }
 
-        // diff(first, second);
+        diff(first, second);
         similarityScore(first, second);
     }
 
