@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class DayBase {
-    public abstract void doit() throws Exception;
+    public abstract void doit() ;
 
     protected File getResource(String name) {
         Objects.requireNonNull(name, "Invalid filename");

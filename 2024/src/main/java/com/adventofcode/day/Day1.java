@@ -10,6 +10,7 @@ public class Day1 extends DayBase {
     public void doit() {
 
         List<String> lines = readFile(getResource("day/1"));
+        
         List<Integer> first = new ArrayList<>(lines.size());
         List<Integer> second = new ArrayList<>(lines.size());
 
